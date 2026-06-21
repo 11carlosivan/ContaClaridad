@@ -125,14 +125,14 @@ const authWrapperStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   minHeight: '100vh',
-  padding: '24px',
+  padding: 'clamp(16px, 4vw, 40px)',
   background: 'radial-gradient(circle at center, hsla(215, 80%, 55%, 0.08) 0%, transparent 60%)'
 };
 
 const authCardStyle = {
   width: '100%',
   maxWidth: '420px',
-  padding: '40px 32px'
+  padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 32px)'
 };
 
 const brandHeaderStyle = {

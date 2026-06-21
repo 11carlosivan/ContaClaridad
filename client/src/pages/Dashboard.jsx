@@ -165,14 +165,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container animated-fade-in" style={{ padding: '30px 24px 60px 24px' }}>
+    <div className="container animated-fade-in page-wrapper">
       
       {/* Top Section - Welcome & Date Selector */}
-      <div className="flex-between" style={{ marginBottom: '30px', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="flex-between page-header" style={{ flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: '800' }}>Panel de Transacciones</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>
-            Gestiona tus finanzas correspondientes a <strong>{getMonthName(filter.month)} de {filter.year}</strong>.
+          <h1 className="page-title">Panel de Transacciones</h1>
+          <p className="page-subtitle">
+            Gestiona tus finanzas de <strong>{getMonthName(filter.month)} de {filter.year}</strong>.
           </p>
         </div>
 
@@ -204,7 +204,7 @@ const Dashboard = () => {
       </div>
 
       {/* Summary Cards Grid */}
-      <div className="grid-4" style={{ marginBottom: '32px' }}>
+      <div className="grid-4" style={{ marginBottom: 'clamp(20px, 4vw, 32px)' }}>
         
         {/* Ingresos Card */}
         <div className="card" style={summaryCardStyle}>
@@ -288,7 +288,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Section Grid: Input Form & Recent Records */}
-      <div className="grid-2" style={{ alignItems: 'start' }}>
+      <div className="grid-2" style={{ alignItems: 'start', gap: 'clamp(16px, 3vw, 24px)' }}>
         
         {/* Left Side: Add Record Form */}
         <div className="card">
@@ -398,7 +398,7 @@ const Dashboard = () => {
             </div>
 
             {/* Quantity and Unit Price Calculator (Optional) */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Cantidad (Opcional)</label>
                 <input
@@ -426,7 +426,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div className="form-grid-2">
               {/* Amount / Total */}
               <div className="form-group">
                 <label className="form-label">
@@ -492,7 +492,7 @@ const Dashboard = () => {
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No hay transacciones registradas en este mes.</p>
             </div>
           ) : (
-            <div style={{ overflowX: 'auto', flex: 1 }}>
+            <div className="table-scroll" style={{ flex: 1 }}>
               <table className="custom-table">
                 <thead>
                   <tr>

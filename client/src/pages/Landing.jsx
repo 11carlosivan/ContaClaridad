@@ -71,7 +71,7 @@ const Landing = () => {
 
       {/* Hero Section */}
       <section style={heroSectionStyle}>
-        <div className="container grid-2" style={{ alignItems: 'center' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', alignItems: 'center', gap: 'clamp(30px, 5vw, 60px)' }}>
           <div className="animated-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={heroBadgeStyle}>
               <Sparkles size={14} color="var(--secondary)" />
@@ -113,7 +113,7 @@ const Landing = () => {
 
       {/* Intro Section: Qué puedes encontrar */}
       <section style={introSectionStyle}>
-        <div className="container grid-2" style={{ alignItems: 'center', gap: '40px' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', alignItems: 'center', gap: 'clamp(24px, 4vw, 48px)' }}>
           {/* Left: Mascot Image */}
           <div style={introImgWrapperStyle}>
             <img src="/claridad imagen 1.png" alt="Logotipo ContaClaridad" style={introImgStyle} />
@@ -518,7 +518,7 @@ const navButtonsStyle = {
 };
 
 const heroSectionStyle = {
-  padding: '80px 0 100px 0',
+  padding: 'clamp(48px, 8vw, 100px) 0',
   background: 'radial-gradient(circle at 80% 20%, rgba(254, 237, 179, 0.25) 0%, transparent 60%)'
 };
 
@@ -537,7 +537,7 @@ const heroBadgeStyle = {
 };
 
 const heroTitleStyle = {
-  fontSize: '2.8rem',
+  fontSize: 'clamp(1.75rem, 5vw, 2.8rem)',
   fontWeight: '800',
   lineHeight: '1.15',
   letterSpacing: '-0.03em'
@@ -589,7 +589,7 @@ const mascotImgStyle = {
 };
 
 const sectionStyle = {
-  padding: '100px 0'
+  padding: 'clamp(48px, 8vw, 100px) 0'
 };
 
 const sectionHeaderStyle = {
@@ -616,7 +616,7 @@ const iconBadgeStyle = {
 };
 
 const sectionTitleStyle = {
-  fontSize: '2.2rem',
+  fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
   fontWeight: '800',
   letterSpacing: '-0.02em'
 };
@@ -638,8 +638,8 @@ const tabContainerStyle = {
 
 const tabHeadersStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: '10px',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
+  gap: '8px',
   borderBottom: '1px solid var(--border-color)',
   paddingBottom: '16px',
   marginBottom: '24px'
@@ -673,7 +673,7 @@ const tabContentStyle = {
 
 const tabInnerStyle = {
   display: 'grid',
-  gridTemplateColumns: '1.8fr 1fr',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
   gap: '24px',
   alignItems: 'center'
 };
@@ -862,7 +862,7 @@ const featureItemStyle = {
 const footerStyle = {
   background: 'var(--primary-dark)',
   color: 'white',
-  padding: '60px 0 30px 0',
+  padding: 'clamp(40px, 6vw, 60px) 0 clamp(20px, 3vw, 30px) 0',
   marginTop: 'auto'
 };
 
@@ -884,7 +884,7 @@ const copyrightStyle = {
 };
 
 const introSectionStyle = {
-  padding: '60px 0',
+  padding: 'clamp(36px, 6vw, 60px) 0',
   borderBottom: '1px solid var(--border-color)',
   background: 'rgba(254, 237, 179, 0.15)'
 };
