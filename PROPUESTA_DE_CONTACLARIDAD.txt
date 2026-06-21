@@ -1,0 +1,95 @@
+
+Esta creada para ti, que no posee los conocimientos básicos de contabilidad, pero necesita saber de tu empresa o negocio la Utilidad de cada mes.
+
+MODULO I
+
+
+Que puede encontrar en ContaClaridad Definición y Ejemplo de 
+INGRESOS
+
+COSTOS
+
+GASTOS
+
+UTILIDAD
+
+ESTADO DE RESULTADO 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ingresos: es el dinero que una empresa recibe por vender productos o prestar servicios.
+Ejemplo:
+ Una tienda vende 100 camisetas a RD$500 cada una.
+Ingresos = 100 × RD$500 = RD$50,000.00,
+
+Costos: Son los gastos directamente relacionados con la producción o adquisición de lo que se vende.
+Ejemplo: 
+La tienda compró las 100 camisetas a RD$300 cada una.
+Costos = 100 × RD$300 = RD$30,000.00.
+Gastos: Son los desembolsos necesarios para operar el negocio o empresa, pero que no forman parte directa del producto vendido.
+Ejemplos:
+Alquiler del local: RD$3,000.00 
+Electricidad: RD$1,000.00 
+Publicidad: RD$2,000.00 
+Sueldos :     RD$2,000.00
+Total de gastos = RD$8,000.00
+-Intereses RD$ 500.00
+-Impuestos 1,000.00
+Utilidad neta: es la ganancia real que obtiene una empresa o persona después de desconta todos los costos, gastos, impuestos y Intereses. Es el beneficio final que queda disponible, 
+
+
+
+Ejemplo completo
+
+ | Concepto || Monto |
+ | Ingresos por ventas || RD$50,000,00 |
+ | (-) Costos || RD$30,000,00 |
+ | =  Utilidad bruta || RD$20,000.00 |
+ | (-) Gastos operativos || RD$8,000.00 |
+ | (-) Impuestos || RD$1,000.00 |
+ | (-) Intereses || RD$500.00 |
+ | = Utilidad neta || RD$10,500.00 |
+ |  ||  |
+
+Resumen rápido
+Ingresos: dinero que entra por ventas o servicios. 
+Costos: lo que cuesta producir o comprar lo que se vende. 
+Gastos: pagos necesarios para administrar y operar el negocio o empresa. 
+Fórmula básica:
+Utilidad = Ingresos − Costos − Gastos. 
+
+El estado de resultados quedaría así:
+
+ | Concepto || Monto (RD$) |
+ | Ventas || 50,000.00 |
+ | (-) Costo de ventas || (30,000.00) |
+ | Utilidad bruta || 20,000.00 |
+ | (-) Gastos operativos || (8,000.00) |
+ | Utilidad operativa || 12,000.00 |
+ | (-) Gastos por intereses || (500.00) |
+ | Utilidad antes de impuestos || 11,500.00 |
+ | (-) Impuestos || (1,000.00) |
+ | Utilidad neta || 10,500.00 |
+
+Cálculo:
+RD$50,000.00 − RD$30,000.00 − RD$8,000.00 − RD$500.00 − RD$1,000.00 = RD$10,500.00
+Utilidad neta final: RD$10,500.00.
+Principio del formulario
+
+Final del formulario
+
+
+
