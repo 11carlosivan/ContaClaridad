@@ -44,25 +44,60 @@ const Landing = () => {
       {/* Custom Landing Nav */}
       <nav style={landingNavStyle}>
         <div className="container" style={navContainerStyle}>
+          {/* Logo */}
           <div style={logoAreaStyle}>
             <div style={logoWrapperStyle}>
               <img src="/logo.jpeg" alt="ContaClaridad Logo" style={logoImgStyle} />
             </div>
             <span style={logoTextStyle}>Conta<span style={{ color: 'var(--secondary)' }}>Claridad</span></span>
           </div>
-          
+
+          {/* Nav Actions */}
           <div style={navButtonsStyle}>
             {user ? (
-              <button onClick={() => navigate('/dashboard')} className="btn btn-primary">
-                <span>Mi Panel de Control</span>
+              <button onClick={() => navigate('/dashboard')} className="btn btn-primary" style={{ padding: '9px 18px', fontSize: '0.9rem' }}>
+                <span>Mi Panel</span>
                 <ArrowRight size={16} />
               </button>
             ) : (
               <>
-                <Link to="/login" style={{ fontWeight: '600', color: 'var(--text-primary)' }}>Iniciar Sesión</Link>
-                <button onClick={() => navigate('/register')} className="btn btn-primary">
+                {/* "Iniciar Sesión" hidden on very small screens to avoid line break */}
+                <Link
+                  to="/login"
+                  style={{
+                    fontWeight: '600',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.9rem',
+                    whiteSpace: 'nowrap'
+                  }}
+                  className="hide-on-mobile"
+                >
+                  Iniciar Sesión
+                </Link>
+                <button
+                  onClick={() => navigate('/register')}
+                  className="btn btn-primary"
+                  style={{ padding: '9px 16px', fontSize: '0.88rem', whiteSpace: 'nowrap' }}
+                >
                   Comenzar
                 </button>
+                {/* Mobile-only: compact login link */}
+                <Link
+                  to="/login"
+                  className="show-on-mobile"
+                  style={{
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    border: '1px solid var(--border-color)',
+                    fontWeight: '600',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.82rem',
+                    whiteSpace: 'nowrap',
+                    background: 'rgba(255,255,255,0.85)'
+                  }}
+                >
+                  Ingresar
+                </Link>
               </>
             )}
           </div>
@@ -516,7 +551,8 @@ const logoTextStyle = {
 const navButtonsStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '20px'
+  gap: '10px',
+  flexShrink: 0
 };
 
 const heroSectionStyle = {
