@@ -79,7 +79,7 @@ const Landing = () => {
             </div>
             <h1 style={heroTitleStyle}>Lleva la contabilidad de tu pyme con <span style={{ color: 'var(--primary-dark)' }}>claridad absoluta</span></h1>
             <p style={heroSubStyle}>
-              ContaClaridad ayuda a los emprendedores a entender sus finanzas reales. Registra tus ingresos, costos y gastos de forma automatizada, y descubre cuál es tu **Utilidad de cada mes** en un Estado de Resultados profesional.
+              ContaClaridad ayuda a los emprendedores a entender sus finanzas reales. Registra tus ingresos, costos y gastos de forma automatizada, y descubre cuál es tu <strong>Utilidad de cada mes</strong> en un <strong>ESTADO DE RESULTADOS</strong> profesional.
             </p>
             <div style={heroCtaAreaStyle}>
               <button onClick={handleHeroCTA} className="btn btn-success" style={{ padding: '16px 32px', fontSize: '1.05rem' }}>
@@ -101,7 +101,7 @@ const Landing = () => {
                 <img src="/claridad imagen 2.png" alt="Mascota ContaClaridad" style={mascotImgStyle} />
               </div>
               <div style={{ padding: '20px', textAlign: 'center' }}>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '4px' }}>Hola, soy Clara</h3>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '4px' }}>Hola, soy ContaClaridad</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
                   "Te guiaré paso a paso para calcular tu utilidad neta mensual sin tecnicismos."
                 </p>
