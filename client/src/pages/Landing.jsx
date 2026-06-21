@@ -17,7 +17,8 @@ const Landing = () => {
   useEffect(() => {
     const fetchPrice = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/billing/public-config');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${apiUrl}/billing/public-config`);
         if (res.ok) {
           const data = await res.json();
           setPlanPrice(data.planPrice || 27);

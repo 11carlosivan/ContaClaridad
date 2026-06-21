@@ -7,8 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
-  // Set API base URL. Since we're running backend on localhost:5000, we hardcode or use relative
-  const API_URL = 'http://localhost:5000/api';
+  // Set API base URL dynamically based on environment
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
   useEffect(() => {
     const verifyToken = async () => {
