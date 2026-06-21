@@ -115,13 +115,9 @@ const Landing = () => {
       {/* Intro Section: Qué puedes encontrar */}
       <section style={introSectionStyle}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', alignItems: 'center', gap: 'clamp(24px, 4vw, 48px)' }}>
-          {/* Left: Mascot Image */}
-          <div style={introImgWrapperStyle}>
-            <img src="/claridad imagen 1.png" alt="Logotipo ContaClaridad" style={introImgStyle} />
-          </div>
-          {/* Right: List of Concepts */}
+          {/* Left: List of Concepts */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: '800', lineHeight: '1.2' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: '800', lineHeight: '1.2' }}>
               ¿Qué puedes encontrar en <span style={{ color: 'var(--primary-dark)' }}>ContaClaridad</span>?
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.5' }}>
@@ -150,8 +146,13 @@ const Landing = () => {
               </li>
             </ul>
           </div>
+          {/* Right: Image */}
+          <div style={introImgWrapperStyle}>
+            <img src="/claridad imagen 1.png" alt="Logotipo ContaClaridad" style={introImgStyle} />
+          </div>
         </div>
       </section>
+
 
       {/* Section 1: Conceptos Financieros Básicos */}
       <section style={sectionStyle}>
