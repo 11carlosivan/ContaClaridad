@@ -60,45 +60,9 @@ const Landing = () => {
                 <ArrowRight size={16} />
               </button>
             ) : (
-              <>
-                {/* "Iniciar Sesión" hidden on very small screens to avoid line break */}
-                <Link
-                  to="/login"
-                  style={{
-                    fontWeight: '600',
-                    color: 'var(--text-primary)',
-                    fontSize: '0.9rem',
-                    whiteSpace: 'nowrap'
-                  }}
-                  className="hide-on-mobile"
-                >
-                  Iniciar Sesión
-                </Link>
-                <button
-                  onClick={() => navigate('/register')}
-                  className="btn btn-primary"
-                  style={{ padding: '9px 16px', fontSize: '0.88rem', whiteSpace: 'nowrap' }}
-                >
-                  Comenzar
-                </button>
-                {/* Mobile-only: compact login link */}
-                <Link
-                  to="/login"
-                  className="show-on-mobile"
-                  style={{
-                    padding: '8px 12px',
-                    borderRadius: '6px',
-                    border: '1px solid var(--border-color)',
-                    fontWeight: '600',
-                    color: 'var(--text-primary)',
-                    fontSize: '0.82rem',
-                    whiteSpace: 'nowrap',
-                    background: 'rgba(255,255,255,0.85)'
-                  }}
-                >
-                  Ingresar
-                </Link>
-              </>
+              <button onClick={() => navigate('/login')} className="btn btn-success" style={{ padding: '9px 20px', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+                Ingresar
+              </button>
             )}
           </div>
         </div>
