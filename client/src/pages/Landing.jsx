@@ -481,7 +481,8 @@ const landingNavStyle = {
 const navContainerStyle = {
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center'
+  alignItems: 'center',
+  gap: '24px'
 };
 
 const logoAreaStyle = {
