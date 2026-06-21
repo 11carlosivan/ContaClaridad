@@ -94,15 +94,15 @@ const Landing = () => {
             </div>
           </div>
           
-          {/* Hero Image wrapper (featuring the mascot logo) */}
+          {/* Hero Image wrapper */}
           <div className="animated-fade-in" style={heroImgAreaStyle}>
             <div style={mascotCardStyle}>
               <div style={mascotImgContainerStyle}>
                 <img src="/claridad imagen 2.png" alt="Mascota ContaClaridad" style={mascotImgStyle} />
               </div>
-              <div style={{ padding: '20px', textAlign: 'center' }}>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '4px' }}>Hola, soy ContaClaridad</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+              <div style={{ padding: '16px 20px', textAlign: 'center', borderTop: '1px solid var(--border-color)', background: '#FFFDF2' }}>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>Hola, soy ContaClaridad</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', lineHeight: '1.4' }}>
                   "Te guiaré paso a paso para calcular tu utilidad neta mensual sin tecnicismos."
                 </p>
               </div>
@@ -518,7 +518,7 @@ const navButtonsStyle = {
 };
 
 const heroSectionStyle = {
-  padding: 'clamp(48px, 8vw, 100px) 0',
+  padding: 'clamp(36px, 6vw, 72px) 0',
   background: 'radial-gradient(circle at 80% 20%, rgba(254, 237, 179, 0.25) 0%, transparent 60%)'
 };
 
@@ -567,24 +567,30 @@ const heroImgAreaStyle = {
 const mascotCardStyle = {
   background: 'white',
   border: '1px solid var(--border-color)',
-  borderRadius: '20px',
+  borderRadius: '16px',
   boxShadow: 'var(--shadow-lg)',
   width: '100%',
-  maxWidth: '455px',
+  maxWidth: '380px',
   overflow: 'hidden',
-  transform: 'rotate(2deg)',
+  transform: 'rotate(1.5deg)',
   transition: 'var(--transition-normal)'
 };
 
 const mascotImgContainerStyle = {
   width: '100%',
-  background: 'rgba(254, 237, 179, 0.2)'
+  height: 'clamp(200px, 35vw, 320px)',
+  overflow: 'hidden',
+  background: 'rgba(254, 237, 179, 0.2)',
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'center'
 };
 
 const mascotImgStyle = {
   width: '100%',
-  height: 'auto',
-  objectFit: 'contain',
+  height: '100%',
+  objectFit: 'cover',
+  objectPosition: 'top center',
   display: 'block'
 };
 
