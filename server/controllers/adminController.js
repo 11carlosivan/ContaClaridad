@@ -5,7 +5,7 @@ exports.getUsersList = async (req, res) => {
   try {
     // 1. Fetch users list
     const [users] = await db.query(
-      'SELECT id, name, email, is_subscribed, is_admin, created_at FROM users ORDER BY created_at DESC'
+      'SELECT id, name, email, is_subscribed, is_admin, trial_ends_at, created_at FROM users ORDER BY created_at DESC'
     );
 
     // 2. Calculate statistics
@@ -15,8 +15,10 @@ exports.getUsersList = async (req, res) => {
     let adminUsers = 0;
 
     users.forEach(u => {
+      const isTrialActive = u.trial_ends_at && new Date(u.trial_ends_at) > new Date();
+      const hasPremium = u.is_subscribed || u.is_admin || isTrialActive;
       if (u.is_admin) adminUsers++;
-      if (u.is_subscribed) {
+      if (hasPremium) {
         premiumUsers++;
       } else {
         freeUsers++;
@@ -57,8 +59,8 @@ exports.toggleUserSubscription = async (req, res) => {
       return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
 
-    // Update subscription
-    await db.query('UPDATE users SET is_subscribed = ? WHERE id = ?', [!!is_subscribed, id]);
+    // Update subscription (setting it manually clears any trial or updates it)
+    await db.query('UPDATE users SET is_subscribed = ?, trial_ends_at = NULL WHERE id = ?', [!!is_subscribed, id]);
 
     return res.json({
       message: `Suscripción ${is_subscribed ? 'activada' : 'desactivada'} con éxito para el usuario.`,
@@ -96,7 +98,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Get admin settings (updated to include plan_price)
+// Get admin settings (updated to include plan_price and trial_duration_days)
 exports.getSettings = async (req, res) => {
   try {
     const [rows] = await db.query("SELECT key_name, key_value FROM settings");
@@ -108,6 +110,7 @@ exports.getSettings = async (req, res) => {
     // Set defaults
     if (!settings.paypal_client_id) settings.paypal_client_id = 'sb';
     if (!settings.plan_price) settings.plan_price = '27';
+    if (!settings.trial_duration_days) settings.trial_duration_days = '7';
     
     return res.json(settings);
   } catch (error) {
@@ -116,9 +119,9 @@ exports.getSettings = async (req, res) => {
   }
 };
 
-// Update admin settings (supports both paypal_client_id and plan_price)
+// Update admin settings (supports paypal_client_id, plan_price, and trial_duration_days)
 exports.updateSettings = async (req, res) => {
-  const { paypal_client_id, plan_price } = req.body;
+  const { paypal_client_id, plan_price, trial_duration_days } = req.body;
 
   try {
     if (paypal_client_id !== undefined) {
@@ -135,10 +138,18 @@ exports.updateSettings = async (req, res) => {
       );
     }
 
+    if (trial_duration_days !== undefined) {
+      await db.query(
+        'INSERT INTO settings (key_name, key_value) VALUES (?, ?) ON DUPLICATE KEY UPDATE key_value = ?',
+        ['trial_duration_days', String(trial_duration_days), String(trial_duration_days)]
+      );
+    }
+
     return res.json({
       message: 'Configuraciones del sistema actualizadas con éxito.',
       paypal_client_id,
-      plan_price
+      plan_price,
+      trial_duration_days
     });
   } catch (error) {
     console.error('Error al actualizar configuraciones:', error);

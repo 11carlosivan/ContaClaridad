@@ -167,6 +167,56 @@ const Dashboard = () => {
   return (
     <div className="container animated-fade-in page-wrapper">
       
+      {/* Trial Active Banner */}
+      {user?.is_trial && user?.trial_ends_at && (
+        <div style={{
+          background: 'linear-gradient(135deg, #fef9c3 0%, #fef3c7 100%)',
+          border: '1px solid #fde047',
+          borderRadius: '12px',
+          padding: '16px 20px',
+          marginBottom: '24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '12px',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+        }} className="animated-fade-in">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ background: '#fef08a', padding: '8px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Sparkles size={20} color="#a16207" />
+            </div>
+            <div>
+              <h4 style={{ margin: 0, fontWeight: '700', color: '#854d0e', fontSize: '0.95rem' }}>Prueba Gratuita Activa</h4>
+              <p style={{ margin: '2px 0 0 0', fontSize: '0.82rem', color: '#a16207' }}>
+                Estás disfrutando de todas las funciones Premium de ContaClaridad. Te quedan{' '}
+                <strong>
+                  {(() => {
+                    const ends = new Date(user.trial_ends_at);
+                    const now = new Date();
+                    const diffTime = ends - now;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    return diffDays > 0 ? diffDays : 0;
+                  })()} días de prueba gratis
+                </strong>.
+              </p>
+            </div>
+          </div>
+          <button 
+            onClick={() => setIsBillingOpen(true)}
+            className="btn btn-primary"
+            style={{
+              padding: '8px 16px',
+              fontSize: '0.85rem',
+              fontWeight: '700',
+              boxShadow: 'none'
+            }}
+          >
+            Adquirir Plan Premium
+          </button>
+        </div>
+      )}
+
       {/* Top Section - Welcome & Date Selector */}
       <div className="flex-between page-header" style={{ flexWrap: 'wrap', gap: '16px' }}>
         <div>

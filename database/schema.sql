@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_subscribed` BOOLEAN DEFAULT FALSE,
   `is_admin` BOOLEAN DEFAULT FALSE,
   `currency` VARCHAR(10) DEFAULT 'DOP',
+  `trial_ends_at` TIMESTAMP NULL DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 INSERT IGNORE INTO `settings` (`key_name`, `key_value`) VALUES ('paypal_client_id', 'AUH4GxzTnXUfys8Vdj1i3GRrYtw9e4Sq43mTlWRhwWqr9IbTi9x7BM6h3HtJHigWm6sdGcfw9iU4bT85');
 INSERT IGNORE INTO `settings` (`key_name`, `key_value`) VALUES ('plan_price', '27');
+INSERT IGNORE INTO `settings` (`key_name`, `key_value`) VALUES ('trial_duration_days', '7');
 
 CREATE TABLE IF NOT EXISTS `payments` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,

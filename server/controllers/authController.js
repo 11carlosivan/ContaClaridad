@@ -20,24 +20,53 @@ exports.register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Fetch trial duration setting
+    const [settings] = await db.query("SELECT key_value FROM settings WHERE key_name = 'trial_duration_days'");
+    const trialDays = settings.length > 0 ? parseInt(settings[0].key_value, 10) : 7;
+
+    let trialEndsAt = null;
+    if (trialDays > 0) {
+      trialEndsAt = new Date();
+      trialEndsAt.setDate(trialEndsAt.getDate() + trialDays);
+    }
+
     // Insert user
     const [result] = await db.query(
-      'INSERT INTO users (name, email, password, is_subscribed) VALUES (?, ?, ?, false)',
-      [name, email, hashedPassword]
+      'INSERT INTO users (name, email, password, is_subscribed, trial_ends_at) VALUES (?, ?, ?, false, ?)',
+      [name, email, hashedPassword, trialEndsAt]
     );
 
     const userId = result.insertId;
+    const isTrialActive = trialEndsAt && trialEndsAt > new Date();
+    const hasPremium = !!isTrialActive;
 
     // Create token
     const token = jwt.sign(
-      { id: userId, email, name, is_subscribed: false, is_admin: false },
+      { 
+        id: userId, 
+        email, 
+        name, 
+        is_subscribed: hasPremium, 
+        is_trial: hasPremium,
+        trial_ends_at: trialEndsAt,
+        is_admin: false 
+      },
       process.env.JWT_SECRET || 'supersecret_key_contaclaridad_2026_xYz',
       { expiresIn: '30d' }
     );
 
     return res.status(201).json({
       token,
-      user: { id: userId, name, email, is_subscribed: false, is_admin: false, currency: 'DOP' }
+      user: { 
+        id: userId, 
+        name, 
+        email, 
+        is_subscribed: hasPremium, 
+        is_trial: hasPremium,
+        trial_ends_at: trialEndsAt,
+        is_admin: false, 
+        currency: 'DOP' 
+      }
     });
   } catch (error) {
     console.error(error);
@@ -67,9 +96,21 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Credenciales incorrectas.' });
     }
 
+    const isTrialActive = user.trial_ends_at && new Date(user.trial_ends_at) > new Date();
+    const hasPremium = !!user.is_subscribed || !!user.is_admin || !!isTrialActive;
+    const isTrial = !user.is_subscribed && !user.is_admin && !!isTrialActive;
+
     // Create token
     const token = jwt.sign(
-      { id: user.id, email: user.email, name: user.name, is_subscribed: !!user.is_subscribed, is_admin: !!user.is_admin },
+      { 
+        id: user.id, 
+        email: user.email, 
+        name: user.name, 
+        is_subscribed: hasPremium, 
+        is_trial: isTrial,
+        trial_ends_at: user.trial_ends_at,
+        is_admin: !!user.is_admin 
+      },
       process.env.JWT_SECRET || 'supersecret_key_contaclaridad_2026_xYz',
       { expiresIn: '30d' }
     );
@@ -80,7 +121,9 @@ exports.login = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        is_subscribed: !!user.is_subscribed,
+        is_subscribed: hasPremium,
+        is_trial: isTrial,
+        trial_ends_at: user.trial_ends_at,
         is_admin: !!user.is_admin,
         currency: user.currency
       }
@@ -93,18 +136,24 @@ exports.login = async (req, res) => {
 
 exports.verify = async (req, res) => {
   try {
-    const [users] = await db.query('SELECT id, name, email, is_subscribed, is_admin, currency FROM users WHERE id = ?', [req.user.id]);
+    const [users] = await db.query('SELECT id, name, email, is_subscribed, is_admin, currency, trial_ends_at FROM users WHERE id = ?', [req.user.id]);
     if (users.length === 0) {
       return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
 
     const user = users[0];
+    const isTrialActive = user.trial_ends_at && new Date(user.trial_ends_at) > new Date();
+    const hasPremium = !!user.is_subscribed || !!user.is_admin || !!isTrialActive;
+    const isTrial = !user.is_subscribed && !user.is_admin && !!isTrialActive;
+
     return res.json({
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        is_subscribed: !!user.is_subscribed,
+        is_subscribed: hasPremium,
+        is_trial: isTrial,
+        trial_ends_at: user.trial_ends_at,
         is_admin: !!user.is_admin,
         currency: user.currency
       }

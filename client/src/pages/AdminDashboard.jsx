@@ -19,6 +19,7 @@ const AdminDashboard = () => {
   const [analytics, setAnalytics] = useState(null);
   const [paypalClientId, setPaypalClientId] = useState('');
   const [planPrice, setPlanPrice] = useState('27');
+  const [trialDurationDays, setTrialDurationDays] = useState('7');
 
   // Loading & Message States
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,7 @@ const AdminDashboard = () => {
         const settingsData = await settingsRes.json();
         setPaypalClientId(settingsData.paypal_client_id || 'sb');
         setPlanPrice(settingsData.plan_price || '27');
+        setTrialDurationDays(settingsData.trial_duration_days || '7');
       }
 
       // 3. Fetch payments
@@ -137,7 +139,8 @@ const AdminDashboard = () => {
         method: 'PUT',
         body: JSON.stringify({ 
           paypal_client_id: paypalClientId,
-          plan_price: planPrice
+          plan_price: planPrice,
+          trial_duration_days: trialDurationDays
         })
       });
       if (response.ok) {
@@ -475,11 +478,35 @@ const AdminDashboard = () => {
                             )}
                           </td>
                           <td>
-                            {u.is_subscribed ? (
+                            {u.is_admin ? (
+                              <span className="badge badge-premium" style={{ background: 'var(--primary-glow)', color: 'var(--primary)' }}>
+                                Acceso Total
+                              </span>
+                            ) : u.is_subscribed ? (
                               <span className="badge badge-premium">
                                 <Sparkles size={10} style={{ marginRight: '2px' }} />
                                 Premium
                               </span>
+                            ) : u.trial_ends_at ? (
+                              (() => {
+                                const ends = new Date(u.trial_ends_at);
+                                const now = new Date();
+                                if (ends > now) {
+                                  const diffTime = ends - now;
+                                  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                  return (
+                                    <span className="badge" style={{ background: '#e0f2fe', color: '#0369a1', border: '1px solid #bae6fd' }}>
+                                      Prueba ({diffDays}d rest.)
+                                    </span>
+                                  );
+                                } else {
+                                  return (
+                                    <span className="badge" style={{ background: '#f1f5f9', color: '#64748b', border: '1px solid #e2e8f0' }}>
+                                      Prueba (Expirada)
+                                    </span>
+                                  );
+                                }
+                              })()
                             ) : (
                               <span className="badge badge-free">
                                 Gratuito
@@ -745,6 +772,28 @@ const AdminDashboard = () => {
               </div>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px', display: 'block' }}>
                 El precio ingresado se cobrará en dólares estadounidenses y actualizará automáticamente la Landing Page y el modal de checkout.
+              </span>
+            </div>
+
+            {/* Trial Duration */}
+            <div className="form-group">
+              <label className="form-label" style={{ fontWeight: '700' }}>Duración de la Prueba Gratis (Días)</label>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={trialDurationDays}
+                  onChange={(e) => setTrialDurationDays(e.target.value)}
+                  placeholder="7"
+                  required
+                  min="0"
+                  step="1"
+                  style={{ background: '#FFFDF2' }}
+                />
+                <span style={{ marginLeft: '12px', fontSize: '0.88rem', fontWeight: '600', color: 'var(--text-secondary)' }}>Días</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px', display: 'block' }}>
+                Establece la duración de la prueba gratuita para todos los nuevos usuarios en días. Coloca 0 para desactivar las pruebas gratuitas.
               </span>
             </div>
 

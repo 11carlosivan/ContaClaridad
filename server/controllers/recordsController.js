@@ -157,11 +157,12 @@ exports.getReport = async (req, res) => {
 
   try {
     // 1. Check user subscription status directly from db
-    const [users] = await db.query('SELECT is_subscribed FROM users WHERE id = ?', [user_id]);
+    const [users] = await db.query('SELECT is_subscribed, is_admin, trial_ends_at FROM users WHERE id = ?', [user_id]);
     if (users.length === 0) {
       return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
-    const isSubscribed = !!users[0].is_subscribed;
+    const isTrialActive = users[0].trial_ends_at && new Date(users[0].trial_ends_at) > new Date();
+    const isSubscribed = !!users[0].is_subscribed || !!users[0].is_admin || !!isTrialActive;
 
     // 2. Fetch all records for the month to do the calculations
     const [records] = await db.query(
